@@ -26,9 +26,18 @@ jobs:
       - name: Validate the captured songyuan memory map
         run: python3 validate_memory_map.py
       - name: Host dependencies
+        timeout-minutes: 8
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential uuid-dev nasm acpica-tools python3-venv clang lld llvm gcc-aarch64-linux-gnu libfuse3-dev
+          # The Azure HTTP mirror stalled the IPCC build before compilation.
+          # Keep runner mirror lists on HTTPS and use the official archive.
+          for mirror in /etc/apt/apt-mirrors.txt /etc/apt/apt-security-mirrors.txt; do
+            if [ -f "$mirror" ]; then
+              sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g; s|http://|https://|g' "$mirror"
+            fi
+          done
+          apt_options=(-o Acquire::Retries=2 -o Acquire::http::Timeout=15 -o Acquire::https::Timeout=15)
+          sudo apt-get "${apt_options[@]}" update
+          sudo apt-get "${apt_options[@]}" install -y build-essential uuid-dev nasm acpica-tools python3-venv clang lld llvm gcc-aarch64-linux-gnu libfuse3-dev
       - name: Test XBL scanning with a guard page
         run: python3 tests/test_xbl_bounds.py
       - name: Fetch pinned Mu-Silicium
