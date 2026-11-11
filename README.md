@@ -40,8 +40,9 @@ The old SM8550 aston driver references and OnePlus ACPI table have been replaced
 
 The native vendor input, framebuffer-cache and CPU-entry builds have now been
 temporarily booted on the phone. They remained black, lost USB connectivity and
-required a power-key restart. The most recent tested menu image was Actions run
-42971166118 (SHA-256 `95e19c0437018f85c27b8a6e1cdd8419b9ed370d4055dc1f405b768c87707fe1`).
+required a power-key restart. The most recent tested menu image was the SMMU/cache
+handoff build, Actions run 43008514330 (SHA-256
+`2343c4e8866ca548ec16ead2e2722a7de06043002c48aa6264ee577285db5c5b`).
 Android recovered. Its ramoops contents were corrupted Android logs and did not
 identify where this UEFI stopped.
 
@@ -73,5 +74,22 @@ memory initialization. Forty descriptor names had trailing spaces. Mu's exact
 callers used an uninitialized descriptor. The names are now unpadded and the
 validator rejects edge whitespace instead of silently stripping it. The same
 correction makes named register/shared-memory regions available to their users.
+
+The name-corrected DEBUG FD reached MMU initialization in QEMU. The next fault
+was a scanner read at `0xc6aa8000`, exactly the end of the retained stock FD.
+`apply_xbl_bounds.py` now replaces only the hash-checked pinned XBL scanner:
+signature lookahead, missing-RET parsing and GUID reads stay inside the retained
+region, and ADD address decoding uses the source register. The host guard-page
+test rejects the old scanner with SIGSEGV and passes the corrected C code.
+
+[DEBUG run 43013977832](https://github.com/NiandeNian/songyuan-uefi/actions/runs/43013977832)
+passed with FD SHA-256
+`3e6f30df3b1ce5e6b29912c95c576df3bc2b94916fd38a2dbf55db7d51179447`.
+The downloaded FD no longer crosses the retained region in QEMU. It reaches
+stock SEC code at `0xc680955c`, which reads through `TPIDR_EL1`; that register is
+zero in this static QEMU setup and the read faults at address zero. The setup
+does not recreate stock scheduler thread state or SM8850 peripherals. It has
+not reached DXE and is not a hardware boot validation. The screen-log and
+bounded-scanner firmware builds have not yet been tested on the offline phone.
 
 License: BSD-2-Clause-Patent.
