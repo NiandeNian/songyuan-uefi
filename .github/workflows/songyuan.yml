@@ -11,7 +11,7 @@ on:
         options: [DEBUG, RELEASE]
         default: DEBUG
   push:
-    paths: ['Platforms/**', 'Resources/**', 'BootShim/**', 'apply_screen_log.py', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
+    paths: ['Platforms/**', 'Resources/**', 'BootShim/**', 'Patches/**', 'apply_xbl_bounds.py', 'tests/**', 'apply_screen_log.py', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
 permissions:
   contents: read
 concurrency:
@@ -29,6 +29,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential uuid-dev nasm acpica-tools python3-venv clang lld llvm gcc-aarch64-linux-gnu libfuse3-dev
+      - name: Test XBL scanning with a guard page
+        run: python3 tests/test_xbl_bounds.py
       - name: Fetch pinned Mu-Silicium
         run: |
           git init Mu-Silicium
@@ -43,6 +45,7 @@ jobs:
           path: Mu-Silicium/UniXNU
       - name: Overlay songyuan platform
         run: |
+          python3 apply_xbl_bounds.py --mu-root Mu-Silicium
           cp -r Platforms/Xiaomi/songyuanPkg Mu-Silicium/Platforms/Xiaomi/songyuanPkg
           cp Resources/Configs/songyuan.toml Mu-Silicium/Resources/Configs/songyuan.toml
           mkdir -p Mu-Silicium/Resources/DTBs
