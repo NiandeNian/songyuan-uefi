@@ -33,6 +33,13 @@ _CopyLoop:
   ldr   x5, =FD_BASE
 
 _Entry:
+  /* ABL's Linux Image handoff has the MMU and D-cache off. Complete the
+   * physical FD copy and discard stale instruction lines before executing
+   * at FD_BASE; SEC's later cache maintenance cannot protect its own entry. */
+  dsb   sy
+  ic    iallu
+  dsb   sy
+  isb
   br    x5
 
 _Dead:

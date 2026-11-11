@@ -6,7 +6,7 @@ on:
         description: UniXNU commit used for the menu and DarwinBoot
         default: efb89367d26190cde9048182ecb22bbf7012cb9b
   push:
-    paths: ['Platforms/**', 'Resources/**', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
+    paths: ['Platforms/**', 'Resources/**', 'BootShim/**', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
 permissions:
   contents: read
 concurrency:
@@ -42,7 +42,7 @@ jobs:
           cp Resources/Configs/songyuan.toml Mu-Silicium/Resources/Configs/songyuan.toml
           mkdir -p Mu-Silicium/Resources/DTBs
           cp Resources/DTBs/songyuan.dtb Mu-Silicium/Resources/DTBs/songyuan.dtb
-          sed -i 's/\.quad FD_SIZE /\.quad FD_SIZE + _Payload - _Head /' Mu-Silicium/BootShim/BootShim.S
+          cp BootShim/BootShim.S Mu-Silicium/BootShim/BootShim.S
           grep 'FD_SIZE + _Payload' Mu-Silicium/BootShim/BootShim.S
           D=Mu-Silicium/Mu_Basecore/BaseTools/Bin/mu_nasm_extdep
           mkdir -p "$D/Linux-x86-64"

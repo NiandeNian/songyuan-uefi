@@ -27,7 +27,7 @@ is `fastboot boot`, without replacing Android boot partitions.
 
 The map has 79 descriptors and 62 AddMem ranges, with all 48 captured live
 reservations covered. It uses the measured SM8850 GIC addresses 0x17000000 and
-0x17080000, preserves the display SIDs 0x800/0x801, and exposes the framebuffer
+0x17080000, preserves the inherited QSMMUv500 stream/context state, and exposes the framebuffer
 through SimpleFbDxe with a write-through framebuffer mapping. SMEM, SHM and
 the PDP shared region use uncached mappings. The original SEC/XBL image is
 retained at 0xc6800000.
@@ -38,10 +38,19 @@ expression are checked by SHA-256; the image's ELF load range is checked too.
 Inputs are created under Mu-Silicium/Binaries/songyuan outside this source tree.
 The old SM8550 aston driver references and OnePlus ACPI table have been replaced.
 
-The phone is online. The earlier gzip/v0 image and raw/v4 repack returned to
-Android; the GIC/display-corrected raw/v4 image remained black and required a
-power-key restart. The native vendor input build is not yet physically validated.
-CI results are recorded separately from hardware results.
+The native vendor input, framebuffer-cache and CPU-entry builds have now been
+temporarily booted on the phone. They remained black, lost USB connectivity and
+required a power-key restart. The most recent tested menu image was Actions run
+42971166118 (SHA-256 `95e19c0437018f85c27b8a6e1cdd8419b9ed370d4055dc1f405b768c87707fe1`).
+Android recovered. Its ramoops contents were corrupted Android logs and did not
+identify where this UEFI stopped.
+
+SEC no longer clears unrelated SMMU stream/context banks before memory and DXE
+initialization. The inherited display/firmware clients keep their translations;
+peripheral drivers must quiesce their client before taking over its own domain.
+BootShim also completes the FD stores and invalidates instruction cache before
+jumping to the copied SEC entry. These corrections address unsafe handoff
+operations; successful hardware boot still needs to be established separately.
 
 The [GIC/display UEFI build](https://github.com/NiandeNian/songyuan-uefi/actions/runs/42967547102)
 passed for `b155dd5e56c8f4427416f12dd94b190d40743599`, including UniXNU,
