@@ -8,6 +8,7 @@ model_count = 1
 # Boot Shim Configs
 #
 [boot_shim]
+screen_log = true
 requires_kernel_header = true
 text_offset = 0
 image_flags = 0xA

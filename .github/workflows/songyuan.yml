@@ -5,8 +5,13 @@ on:
       unixnu_ref:
         description: UniXNU commit used for the menu and DarwinBoot
         default: efb89367d26190cde9048182ecb22bbf7012cb9b
+      build_target:
+        description: DEBUG enables framebuffer firmware logs
+        type: choice
+        options: [DEBUG, RELEASE]
+        default: DEBUG
   push:
-    paths: ['Platforms/**', 'Resources/**', 'BootShim/**', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
+    paths: ['Platforms/**', 'Resources/**', 'BootShim/**', 'apply_screen_log.py', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
 permissions:
   contents: read
 concurrency:
@@ -42,7 +47,7 @@ jobs:
           cp Resources/Configs/songyuan.toml Mu-Silicium/Resources/Configs/songyuan.toml
           mkdir -p Mu-Silicium/Resources/DTBs
           cp Resources/DTBs/songyuan.dtb Mu-Silicium/Resources/DTBs/songyuan.dtb
-          cp BootShim/BootShim.S Mu-Silicium/BootShim/BootShim.S
+          cp -r BootShim/. Mu-Silicium/BootShim/
           grep 'FD_SIZE + _Payload' Mu-Silicium/BootShim/BootShim.S
           D=Mu-Silicium/Mu_Basecore/BaseTools/Bin/mu_nasm_extdep
           mkdir -p "$D/Linux-x86-64"
@@ -57,8 +62,10 @@ jobs:
         run: |
           source venv/bin/activate
           cd Mu-Silicium
-          python3 build_uefi.py -d songyuan -r RELEASE
-          fd=Build/songyuanPkg/RELEASE_CLANGPDB/FV/SILICIUM_UEFI.fd
+          target=${{ inputs.build_target || 'RELEASE' }}
+          if [ "$target" = DEBUG ]; then python3 ../apply_screen_log.py --mu-root .; fi
+          python3 build_uefi.py -d songyuan -r "$target"
+          fd=Build/songyuanPkg/${target}_CLANGPDB/FV/SILICIUM_UEFI.fd
           test "$(stat -c %s "$fd")" -eq $((0x300000))
           sha256sum "$fd"
           find Build/songyuanPkg -name UniXNU.efi -o -name UniXNUDxe.efi -o -name DarwinBoot.efi

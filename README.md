@@ -59,6 +59,12 @@ UniXNUDxe and DarwinBoot. The
 also passed. Actions artifacts expire after 14 days; rebuild this firmware and
 pass the new successful run ID to the main repository's menu workflow when needed.
 
-No entry, panic-screen or hardware probe payload is added by this port.
+After the SMMU/cache handoff build also remained black, the user authorized
+screen probes. `boot_shim.screen_log=true` now adds a general-register-only
+framebuffer logger and a temporary stack. It reports entry, CurrentEL/SCTLR,
+FDT, firmware copying and the jump to SEC. Early exceptions retain ESR/ELR/FAR
+on screen without a reset timer. A DEBUG firmware adds the SEC assembly-entry
+marker and the normal Mu-Silicium framebuffer console. Build DEBUG for this
+diagnostic test; RELEASE still omits the common firmware debug output.
 
 License: BSD-2-Clause-Patent.

@@ -9,12 +9,21 @@
 
 [Sources]
   PlatformSec.c
+  ScreenLog.c
 
 [Sources.AArch64]
   AArch64/PlatformHelper.S
 
 [Packages]
   ArmPkg/ArmPkg.dec
+  ArmPlatformPkg/ArmPlatformPkg.dec
   MdePkg/MdePkg.dec
   SiliciumPkg/SiliciumPkg.dec
   QcomPkg/QcomPkg.dec
+
+[BuildOptions]
+  *_*_AARCH64_CC_FLAGS = -mgeneral-regs-only -mstrict-align
+
+[FixedPcd]
+  gArmPlatformTokenSpaceGuid.PcdCPUCoresStackBase
+  gArmPlatformTokenSpaceGuid.PcdCPUCorePrimaryStackSize
