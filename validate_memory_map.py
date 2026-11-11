@@ -45,7 +45,7 @@ for entry in entries:
         fail(f"{entry['name']} is not aligned to the ARM MMU's 4K mapping granule")
 required = {
     "GUNYAH_HYP_REGION": (0x80000000, 0x00E00000),
-    "SPLASH_REGION": (0xFC800000, 0x02B00000),
+    "Display_Reserved": (0xFC800000, 0x02B00000),
     "RAMOOPS_REGION": (0xFF400000, 0x00200000),
     "DUMP_DISPLAY_REGION": (0xFF3FF000, 0x00001000),
     "HYPERVISOR_EXTENDED_": (0xC3DD0000, 0x00A30000),

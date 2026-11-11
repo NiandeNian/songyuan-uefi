@@ -23,7 +23,7 @@
   BUILD_TARGETS                  = RELEASE|DEBUG
   SKUID_IDENTIFIER               = DEFAULT
   FLASH_DEFINITION               = songyuanPkg/songyuan.fdf
-  USE_CUSTOM_DISPLAY_DRIVER      = 1
+  USE_CUSTOM_DISPLAY_DRIVER      = 0
 
   #
   # 0 = SM8550-AB
@@ -40,6 +40,9 @@
   gArmTokenSpaceGuid.PcdSystemMemoryBase|0x80000000
   # Captured MPIDRs: six cores at Aff2=0 and two at Aff2=1.
   gArmPlatformTokenSpaceGuid.PcdClusterCount|2
+  # SM8850 GIC addresses from the captured live device tree.
+  gArmTokenSpaceGuid.PcdGicDistributorBase|0x17000000
+  gArmTokenSpaceGuid.PcdGicRedistributorsBase|0x17080000
 
   #
   # UEFI Stack
@@ -51,6 +54,8 @@
   # SMBIOS
   #
   gSiliciumPkgTokenSpaceGuid.PcdSmbiosSystemManufacturer|"Xiaomi"
+  gSiliciumPkgTokenSpaceGuid.PcdSmbiosProcessorModel|"Snapdragon 8 Elite Gen 5"
+  gSiliciumPkgTokenSpaceGuid.PcdSmbiosProcessorPartNumber|"SM8850"
   gSiliciumPkgTokenSpaceGuid.PcdSmbiosSystemModel|"Redmi K100 Pro Max"
   gSiliciumPkgTokenSpaceGuid.PcdSmbiosSystemRetailModel|"songyuan"
   gSiliciumPkgTokenSpaceGuid.PcdSmbiosSystemRetailSku|"M098FE"
@@ -69,6 +74,7 @@
   gQcomPkgTokenSpaceGuid.PcdPlatformType|"LA"
 
 [LibraryClasses]
+  PlatformSecLib|songyuanPkg/Library/PlatformSecLib/PlatformSecLib.inf
   UniXNULib|UniXNUPkg/Library/UniXNULib/UniXNULib.inf
   #
   # Memory Libraries

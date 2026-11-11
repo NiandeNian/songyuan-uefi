@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = SongyuanPlatformSecLib
+  FILE_GUID = 41DE29DC-0195-4C8D-B62F-6B45A8D82D21
+  MODULE_TYPE = BASE
+  VERSION_STRING = 1.0
+  LIBRARY_CLASS = PlatformSecLib
+
+[Sources]
+  PlatformSec.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  QcomPkg/QcomPkg.dec
+
+[LibraryClasses]
+  ArmSmmuDetachLib

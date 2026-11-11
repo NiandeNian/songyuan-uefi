@@ -54,7 +54,8 @@ gMemoryDescriptor[] = {
   {"LLCC_LPI_REGION     ", 0xFF800000, 0x00800000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"LCP_DARE_REGION     ", 0x880000000, 0x06000000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"SHM                 ", 0xFC200000, 0x00400000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
-  {"SPLASH_REGION       ", 0xFC800000, 0x02B00000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
+  // Name consumed by SimpleFbDxe and the framebuffer serial library.
+  {"Display_Reserved    ", 0xFC800000, 0x02B00000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
 
   // UEFI and XNU allocations carved only from gaps in the live memory map.
   {"FD_Reserved",        0xA7000000, 0x00100000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
