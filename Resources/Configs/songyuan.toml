@@ -9,6 +9,8 @@ model_count = 1
 #
 [boot_shim]
 requires_kernel_header = true
+text_offset = 0
+image_flags = 0xA
 
 #
 # UEFI FD Configs
@@ -21,15 +23,15 @@ size = 0x300000
 # Android Boot Image Kernel Configs
 #
 [boot_image_kernel]
-kernel_compression = "gzip"
-append_dtb         = true
+kernel_compression = "none"
+append_dtb         = false
 
 #
 # Android Boot Image Configs
 #
 [boot_image]
-# K90 Pro Max class ABL: with header v4 it loads init_boot's generic ramdisk instead of
-# the payload in this image, so the UniXNU payload needs header v0.
-header_version = 0
+# The existing songyuan RAM loader boots as a raw ARM64 Image with Android v4.
+# The UEFI menu uses no generic ramdisk; its device tree is embedded in firmware.
+header_version = 4
 os_version = "17.0.0"
 os_patch_level = "2026-11"
