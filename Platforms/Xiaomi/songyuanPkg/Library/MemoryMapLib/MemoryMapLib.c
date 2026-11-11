@@ -14,8 +14,8 @@ gMemoryDescriptor[] = {
   {"AOP_IMAGE_REGION    ", 0x81C00000, 0x00060000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"AOP_CMD_DB_REGION   ", 0x81C60000, 0x00020000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"AOP_TME_UEFI_MERGED_", 0x81C80000, 0x00074000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
-  {"SMEM_REGION         ", 0x81D00000, 0x00200000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
-  {"PDP_NS_SHARED_REGION", 0x81F00000, 0x00100000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
+  {"SMEM_REGION         ", 0x81D00000, 0x00200000, AddMem, MEM_RES, UNCACHEABLE, Reserv, UNCACHED_UNBUFFERED_XN},
+  {"PDP_NS_SHARED_REGION", 0x81F00000, 0x00100000, AddMem, MEM_RES, UNCACHEABLE, Reserv, UNCACHED_UNBUFFERED_XN},
   {"CPUCP_SCANDUMP_REGIO", 0x82000000, 0x00380000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"ADSP_MHI_REGION     ", 0x82380000, 0x00020000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"SOCCP_SDI_REGION    ", 0x823A0000, 0x00040000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
@@ -53,9 +53,9 @@ gMemoryDescriptor[] = {
   {"RAMOOPS_REGION      ", 0xFF400000, 0x00200000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"LLCC_LPI_REGION     ", 0xFF800000, 0x00800000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"LCP_DARE_REGION     ", 0x880000000, 0x06000000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
-  {"SHM                 ", 0xFC200000, 0x00400000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
+  {"SHM                 ", 0xFC200000, 0x00400000, AddMem, MEM_RES, UNCACHEABLE, Reserv, UNCACHED_UNBUFFERED_XN},
   // Name consumed by SimpleFbDxe and the framebuffer serial library.
-  {"Display_Reserved    ", 0xFC800000, 0x02B00000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
+  {"Display_Reserved    ", 0xFC800000, 0x02B00000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_THROUGH_XN},
 
   // UEFI and XNU allocations carved only from gaps in the live memory map.
   // Original SEC and XBL protocol code retained at the stock ELF load address.

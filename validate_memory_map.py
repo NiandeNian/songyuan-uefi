@@ -43,6 +43,12 @@ by_name = {entry["name"]: entry for entry in entries}
 for entry in entries:
     if entry['base'] % 4096 or entry['size'] % 4096:
         fail(f"{entry['name']} is not aligned to the ARM MMU's 4K mapping granule")
+for name, attribute in (('Display_Reserved', 'WRITE_THROUGH_XN'),
+                        ('SMEM_REGION', 'UNCACHED_UNBUFFERED_XN'),
+                        ('PDP_NS_SHARED_REGION', 'UNCACHED_UNBUFFERED_XN'),
+                        ('SHM', 'UNCACHED_UNBUFFERED_XN')):
+    if not re.search(r'\{"' + re.escape(name) + r'\s*"[^\n]*,\s*' + attribute + r'\}', text):
+        fail(f'{name} must retain its framebuffer/shared-memory cache attribute')
 required = {
     "GUNYAH_HYP_REGION": (0x80000000, 0x00E00000),
     "Display_Reserved": (0xFC800000, 0x02B00000),
