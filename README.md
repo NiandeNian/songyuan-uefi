@@ -92,4 +92,19 @@ does not recreate stock scheduler thread state or SM8850 peripherals. It has
 not reached DXE and is not a hardware boot validation. The screen-log and
 bounded-scanner firmware builds have not yet been tested on the offline phone.
 
+The 2026-11-11 hardware test of menu run `43015116868` now confirms the
+framebuffer stages through `[14] PlatformPeim`. The screen reports a synchronous
+exception at stock PC `0xc6808300`. Stock disassembly identifies this as
+`ldrb w0, [x20, #0x328]`, with `x20` loaded from `TPIDR_EL1` at `0xc68082d4`,
+inside the mutex acquisition used by the scheduler lock service. The photo
+does not include FAR or the thread register; a null pointer and an unmapped
+retained thread heap cannot yet be distinguished on hardware. Android recovered
+with a different boot ID; pstore has no SEC crash record.
+
+DEBUG now retains ESR, FAR and TPIDR on the exception screen, records TPIDR
+before/after MMU setup, and marks GUID discovery and every FV InitLock call.
+These logs do not alter the stock scheduler or invent thread/HOB contents.
+This is a diagnostic build to identify the required runtime mapping or context
+repair; the UniXNU menu and iOS boot are still unconfirmed.
+
 License: BSD-2-Clause-Patent.

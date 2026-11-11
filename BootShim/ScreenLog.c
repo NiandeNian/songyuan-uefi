@@ -58,6 +58,38 @@ static void hex_line(const char *label, u64 value, unsigned row)
   songyuan_screen_line(buffer, row);
 }
 
+void songyuan_screen_hex(const char *label, u64 value, unsigned row)
+{
+  hex_line(label, value, row);
+}
+
+void songyuan_screen_thread(unsigned row)
+{
+  u64 thread;
+  __asm__ volatile("mrs %0, tpidr_el1" : "=r"(thread));
+  hex_line("TPIDR_EL1", thread, row);
+}
+
+void songyuan_screen_sec_fault(u64 type, u64 pc)
+{
+  u64 level, esr, far, thread;
+  __asm__ volatile("mrs %0, CurrentEL" : "=r"(level));
+  if (level == 8) {
+    __asm__ volatile("mrs %0, esr_el2" : "=r"(esr));
+    __asm__ volatile("mrs %0, far_el2" : "=r"(far));
+  } else {
+    __asm__ volatile("mrs %0, esr_el1" : "=r"(esr));
+    __asm__ volatile("mrs %0, far_el1" : "=r"(far));
+  }
+  __asm__ volatile("mrs %0, tpidr_el1" : "=r"(thread));
+  songyuan_screen_line("SEC EXCEPTION - XBL context diagnostic", 40);
+  hex_line("Type", type, 41);
+  hex_line("PC", pc, 42);
+  hex_line("ESR", esr, 43);
+  hex_line("FAR", far, 44);
+  hex_line("TPIDR_EL1", thread, 45);
+}
+
 void songyuan_screen_start(u64 level, u64 sctlr, u64 fdt, u64 load)
 {
   volatile u32 *fb = (volatile u32 *)FB_BASE;
