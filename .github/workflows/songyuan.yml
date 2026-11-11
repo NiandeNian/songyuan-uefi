@@ -11,7 +11,7 @@ on:
         options: [DEBUG, RELEASE]
         default: DEBUG
   push:
-    paths: ['Platforms/**', 'Resources/**', 'BootShim/**', 'Patches/**', 'apply_xbl_bounds.py', 'tests/**', 'apply_screen_log.py', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
+    paths: ['Platforms/**', 'Resources/**', 'BootShim/**', 'Patches/**', 'apply_xbl_bounds.py', 'tests/**', 'apply_screen_log.py', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/scripts/**', '.github/workflows/songyuan.yml']
 permissions:
   contents: read
 concurrency:
@@ -28,6 +28,7 @@ jobs:
       - name: Host dependencies
         timeout-minutes: 8
         run: |
+          sudo python3 .github/scripts/apt_dns_fallback.py
           # The Azure HTTP mirror stalled the IPCC build before compilation.
           # Keep runner mirror lists on HTTPS and use the official archive.
           for mirror in /etc/apt/apt-mirrors.txt /etc/apt/apt-security-mirrors.txt; do
@@ -35,7 +36,7 @@ jobs:
               sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g; s|http://|https://|g' "$mirror"
             fi
           done
-          apt_options=(-o Acquire::Retries=2 -o Acquire::http::Timeout=15 -o Acquire::https::Timeout=15)
+          apt_options=(-o Acquire::Retries=2 -o Acquire::http::Timeout=15 -o Acquire::https::Timeout=15 -o APT::Update::Error-Mode=any)
           sudo apt-get "${apt_options[@]}" update
           sudo apt-get "${apt_options[@]}" install -y build-essential uuid-dev nasm acpica-tools python3-venv clang lld llvm gcc-aarch64-linux-gnu libfuse3-dev
       - name: Test XBL scanning with a guard page
