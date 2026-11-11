@@ -67,4 +67,11 @@ on screen without a reset timer. A DEBUG firmware adds the SEC assembly-entry
 marker and the normal Mu-Silicium framebuffer console. Build DEBUG for this
 diagnostic test; RELEASE still omits the common firmware debug output.
 
+The first DEBUG FD ran through the SEC cache stages in QEMU, then faulted before
+memory initialization. Forty descriptor names had trailing spaces. Mu's exact
+`AsciiStriCmp` lookup could not find `Display_Reserved`, and its framebuffer
+callers used an uninitialized descriptor. The names are now unpadded and the
+validator rejects edge whitespace instead of silently stripping it. The same
+correction makes named register/shared-memory regions available to their users.
+
 License: BSD-2-Clause-Patent.

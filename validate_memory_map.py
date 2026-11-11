@@ -31,7 +31,8 @@ text = MAP.read_text(encoding="utf-8")
 entries = []
 for match in ENTRY.finditer(text):
     item = match.groupdict()
-    item["name"] = item["name"].strip()
+    if item["name"] != item["name"].strip():
+        fail(f'{item["name"]!r} has edge whitespace; Mu uses exact AsciiStriCmp name lookup')
     item["base"] = int(item["base"], 16)
     item["size"] = int(item["size"], 16)
     entries.append(item)
@@ -40,6 +41,8 @@ if len(entries) < 70:
     fail(f"only {len(entries)} descriptors parsed; expected the live-FDT map plus UEFI allocations")
 
 by_name = {entry["name"]: entry for entry in entries}
+if len(by_name) != len(entries):
+    fail('duplicate memory region name')
 for entry in entries:
     if entry['base'] % 4096 or entry['size'] % 4096:
         fail(f"{entry['name']} is not aligned to the ARM MMU's 4K mapping granule")
