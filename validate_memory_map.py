@@ -62,6 +62,7 @@ required = {
     "OEM_VM_REGION": (0xF8800000, 0x03800000),
     "UEFI_FD": (0xA7100000, 0x00300000),
     "FD_Reserved": (0xC6800000, 0x002A8000),
+    "XBL_Runtime": (0xC6AA8000, 0x00D58000),
     "GCC": (0x00100000, 0x001F5000),
     "UFS": (0x01D80000, 0x00027000),
     "QUP_V3": (0x0A800000, 0x00800000),
@@ -81,6 +82,17 @@ if by_name["XNU_Payload"]["base"] + by_name["XNU_Payload"]["size"] != by_name["T
     fail("XNU payload no longer ends at the trust-UI reservation boundary")
 if by_name["DXE_Heap"]["base"] + by_name["DXE_Heap"]["size"] != by_name["HYPERVISOR_EXTENDED_"]["base"]:
     fail("DXE heap no longer ends at the hypervisor-extended reservation boundary")
+
+# Hardware fault 2026-11-11: the live stock thread survived the handoff but its
+# heap was missing from the new page tables (DFSC=6, L2 translation fault).
+runtime = by_name['XBL_Runtime']
+if runtime['base'] != by_name['FD_Reserved']['base'] + by_name['FD_Reserved']['size']:
+    fail('XBL runtime does not immediately follow the bounded FD')
+if not runtime['base'] <= 0xC6EF02D8 <= 0xC6EF0600 < runtime['base'] + runtime['size']:
+    fail('the hardware-observed XBL thread and mutex field are unmapped')
+if runtime['resource'] != 'MEM_RES' or not re.search(
+        r'\{"XBL_Runtime"[^\n]*,\s*WRITE_BACK_XN\}', text):
+    fail('XBL runtime must be reserved write-back data')
 
 # Only AddMem descriptors participate in the physical-memory HOB map.  MMIO
 # AddDev/NoHob ranges deliberately occupy a different resource namespace.

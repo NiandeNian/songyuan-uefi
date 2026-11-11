@@ -60,6 +60,11 @@ gMemoryDescriptor[] = {
   // UEFI and XNU allocations carved only from gaps in the live memory map.
   // Original SEC and XBL protocol code retained at the stock ELF load address.
   {"FD_Reserved",        0xC6800000, 0x002A8000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK},
+  // Live XBL objects extend beyond the ELF's file-sized FD. Hardware keeps
+  // TPIDR_EL1=0xC6EF02D8; the lock reads +0x328 at 0xC6EF0600. Retain the
+  // remainder of this 16 MiB firmware envelope as data, separate from the
+  // bounded code scanner. No UEFI allocator may reuse this live runtime.
+  {"XBL_Runtime",        0xC6AA8000, 0x00D58000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"UEFI_FD",            0xA7100000, 0x00300000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
   {"UEFI_FD_Reserved",   0xA7400000, 0x00200000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
   {"Info_Blk",           0xA7601000, 0x00001000, AddMem, SYS_MEM, SYS_MEM_CAP, RtData, WRITE_BACK_XN},

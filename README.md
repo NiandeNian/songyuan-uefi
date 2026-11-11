@@ -107,4 +107,17 @@ These logs do not alter the stock scheduler or invent thread/HOB contents.
 This is a diagnostic build to identify the required runtime mapping or context
 repair; the UniXNU menu and iOS boot are still unconfirmed.
 
+The next hardware run (`43025963716`, FD run `43025226578`) confirms
+`TPIDR_EL1=0xc6ef02d8` both before and after MMU setup. The first FV InitLock
+faults at `0xc6808300`, ESR `0x96000006`, FAR `0xc6ef0600`. FAR is exactly the
+live thread plus `0x328`; DFSC 6 means an L2 translation fault. This proves
+the thread register survived and the missing runtime map caused this access
+to fail. `XBL_Runtime` now reserves/maps the rest of the 16 MiB firmware
+envelope (`0xc6aa8000..0xc7800000`) as write-back data. The scanner remains
+bounded to the original `0x2a8000` FD, and no thread or scheduler objects are
+modified. The envelope conservatively retains adjacent stock runtime data;
+its complete original allocation layout is not claimed to have been recovered.
+This fixes the observed missing mapping; further hardware progress still
+requires a new temporary boot test.
+
 License: BSD-2-Clause-Patent.
