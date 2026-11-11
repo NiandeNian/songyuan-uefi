@@ -38,6 +38,8 @@
   # DDR Memory
   #
   gArmTokenSpaceGuid.PcdSystemMemoryBase|0x80000000
+  # Captured MPIDRs: six cores at Aff2=0 and two at Aff2=1.
+  gArmPlatformTokenSpaceGuid.PcdClusterCount|2
 
   #
   # UEFI Stack
