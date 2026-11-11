@@ -66,6 +66,7 @@ required = {
     "GCC": (0x00100000, 0x001F5000),
     "UFS": (0x01D80000, 0x00027000),
     "QUP_V3": (0x0A800000, 0x00800000),
+    "IPCC": (0x01106000, 0x00001000),
     "Kernel": (0xA8000000, 0x10000000),
     "XNU_Payload": (0xF0000000, 0x03800000),
     "DXE_Heap": (0xB8000000, 0x0BDD0000),
@@ -93,6 +94,17 @@ if not runtime['base'] <= 0xC6EF02D8 <= 0xC6EF0600 < runtime['base'] + runtime['
 if runtime['resource'] != 'MEM_RES' or not re.search(
         r'\{"XBL_Runtime"[^\n]*,\s*WRITE_BACK_XN\}', text):
     fail('XBL runtime must be reserved write-back data')
+
+# Hardware DXE fault 2026-11-11: FAR=0x01106000, DFSC=7. The live FDT
+# identifies exactly one IPCC register page; map only that page as Device MMIO.
+ipcc = by_name['IPCC']
+if ipcc['hob'] != 'AddDev' or ipcc['resource'] != 'MMAP_IO' or not re.search(
+        r'\{"IPCC"[^\n]*,\s*UNCACHEABLE,\s*MmIO,\s*NS_DEVICE\}', text):
+    fail('IPCC must be uncached Device MMIO, not allocatable RAM')
+for entry in entries:
+    if entry is not ipcc and max(entry['base'], ipcc['base']) < min(
+            entry['base'] + entry['size'], ipcc['base'] + ipcc['size']):
+        fail(f"IPCC overlaps {entry['name']}")
 
 # Only AddMem descriptors participate in the physical-memory HOB map.  MMIO
 # AddDev/NoHob ranges deliberately occupy a different resource namespace.

@@ -25,7 +25,7 @@ is `fastboot boot`, without replacing Android boot partitions.
 
 ## Validation status
 
-The map has 79 descriptors and 62 AddMem ranges, with all 48 captured live
+The map has 81 descriptors and 63 AddMem ranges, with all 48 captured live
 reservations covered. It uses the measured SM8850 GIC addresses 0x17000000 and
 0x17080000, preserves the inherited QSMMUv500 stream/context state, and exposes the framebuffer
 through SimpleFbDxe with a write-through framebuffer mapping. SMEM, SHM and
@@ -117,7 +117,14 @@ envelope (`0xc6aa8000..0xc7800000`) as write-back data. The scanner remains
 bounded to the original `0x2a8000` FD, and no thread or scheduler objects are
 modified. The envelope conservatively retains adjacent stock runtime data;
 its complete original allocation layout is not claimed to have been recovered.
-This fixes the observed missing mapping; further hardware progress still
-requires a new temporary boot test.
+The next temporary hardware boot (`43029794779`, FD run `43028929595`) passed
+SEC and reached DXE. The ArmCpuDxe exception screen reports ELR `0xc22e3d84`,
+ESR `0x96000007`, FAR `0x01106000`: an L3 translation fault. The captured live
+FDT identifies this address as `qcom,ipcc@1106000`, size `0x1000`.
+`IPCC` now maps exactly that page as uncached Device MMIO; the existing
+`IPC_ROUTER_TOP` range does not cover it. The validator checks its range,
+attributes and absence of overlaps. Android recovered after the user held the
+power key. This confirms the runtime mapping enabled DXE progress; the new
+IPCC mapping and UniXNU menu still require a temporary hardware boot test.
 
 License: BSD-2-Clause-Patent.
