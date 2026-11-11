@@ -29,6 +29,13 @@ Offline validation passes: 76 descriptors, 62 AddMem ranges, no overlaps,
 phone is offline. Inherited OnePlus 15 ACPI and Qualcomm firmware drivers have
 not been verified on this phone. CI results are recorded separately from hardware results.
 
+The [UEFI build](https://github.com/NiandeNian/songyuan-uefi/actions/runs/42959424537)
+passed for `a4570c5280ac65f2b59b3d819e25872312f39cfc`, including UniXNU,
+UniXNUDxe and DarwinBoot. The
+[menu boot.img build](https://github.com/NiandeNian/UniXNU-songyuan/actions/runs/42961546839)
+also passed. Actions artifacts expire after 14 days; rebuild this firmware and
+pass the new successful run ID to the main repository's menu workflow when needed.
+
 No entry, panic-screen or hardware probe payload is added by this port.
 
 License: BSD-2-Clause-Patent.
