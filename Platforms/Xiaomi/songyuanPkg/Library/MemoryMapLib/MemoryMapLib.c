@@ -5,8 +5,8 @@ EFI_MEMORY_REGION_DESCRIPTOR
 gMemoryDescriptor[] = {
   // Name, Address, Length, HobOption, ResourceType, ResourceAttribute, MemoryType, ArmAttribute
 
-  // Stock reserved-memory nodes from the live songyuan FDT. Keep these exact:
-  // exposing any of them as conventional memory lets DXE overwrite active firmware.
+  // Stock reserved-memory nodes from the live songyuan FDT. Reserve whole pages
+  // covering every node: the ARM MMU cannot map a partial 4K page.
   {"GUNYAH_HYP_REGION   ", 0x80000000, 0x00E00000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"RESERVED_REGION     ", 0x80E00000, 0x00400000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"CPUCP_PDP_REGION    ", 0x81200000, 0x00200000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
@@ -49,7 +49,7 @@ gMemoryDescriptor[] = {
   {"TZ_MERGED_REGION    ", 0xD8000000, 0x00800000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"TRUST_UI_VM_REGION  ", 0xF3800000, 0x05000000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"OEM_VM_REGION       ", 0xF8800000, 0x03800000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
-  {"DUMP_DISPLAY_REGION ", 0xFF3FF800, 0x00000800, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
+  {"DUMP_DISPLAY_REGION ", 0xFF3FF000, 0x00001000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"RAMOOPS_REGION      ", 0xFF400000, 0x00200000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"LLCC_LPI_REGION     ", 0xFF800000, 0x00800000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"LCP_DARE_REGION     ", 0x880000000, 0x06000000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},

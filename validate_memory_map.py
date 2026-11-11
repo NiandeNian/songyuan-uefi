@@ -40,10 +40,14 @@ if len(entries) < 70:
     fail(f"only {len(entries)} descriptors parsed; expected the live-FDT map plus UEFI allocations")
 
 by_name = {entry["name"]: entry for entry in entries}
+for entry in entries:
+    if entry['base'] % 4096 or entry['size'] % 4096:
+        fail(f"{entry['name']} is not aligned to the ARM MMU's 4K mapping granule")
 required = {
     "GUNYAH_HYP_REGION": (0x80000000, 0x00E00000),
     "SPLASH_REGION": (0xFC800000, 0x02B00000),
     "RAMOOPS_REGION": (0xFF400000, 0x00200000),
+    "DUMP_DISPLAY_REGION": (0xFF3FF000, 0x00001000),
     "HYPERVISOR_EXTENDED_": (0xC3DD0000, 0x00A30000),
     "TRUST_UI_VM_REGION": (0xF3800000, 0x05000000),
     "OEM_VM_REGION": (0xF8800000, 0x03800000),
