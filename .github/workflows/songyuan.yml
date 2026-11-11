@@ -1,0 +1,72 @@
+name: songyuan UEFI with UniXNU
+on:
+  workflow_dispatch:
+    inputs:
+      unixnu_ref:
+        description: UniXNU commit used for the menu and DarwinBoot
+        default: efb89367d26190cde9048182ecb22bbf7012cb9b
+  push:
+    paths: ['Platforms/**', 'Resources/**', 'validate_memory_map.py', '.github/workflows/songyuan.yml']
+permissions:
+  contents: read
+concurrency:
+  group: uefi-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate the captured songyuan memory map
+        run: python3 validate_memory_map.py
+      - name: Host dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential uuid-dev nasm acpica-tools python3-venv clang lld llvm gcc-aarch64-linux-gnu libfuse3-dev
+      - name: Fetch pinned Mu-Silicium
+        run: |
+          git init Mu-Silicium
+          git -C Mu-Silicium fetch --depth 1 https://github.com/Project-Silicium/Mu-Silicium.git 46e4ac0800862fb3ee6da09f0028fbef4e767648
+          git -C Mu-Silicium checkout FETCH_HEAD
+          git -C Mu-Silicium submodule update --init --recursive --depth 1
+      - uses: actions/checkout@v4
+        with:
+          repository: NiandeNian/UniXNU-songyuan
+          ref: ${{ inputs.unixnu_ref || 'efb89367d26190cde9048182ecb22bbf7012cb9b' }}
+          submodules: recursive
+          path: Mu-Silicium/UniXNU
+      - name: Overlay songyuan platform
+        run: |
+          cp -r Platforms/Xiaomi/songyuanPkg Mu-Silicium/Platforms/Xiaomi/songyuanPkg
+          cp Resources/Configs/songyuan.toml Mu-Silicium/Resources/Configs/songyuan.toml
+          mkdir -p Mu-Silicium/Resources/DTBs
+          cp Resources/DTBs/songyuan.dtb Mu-Silicium/Resources/DTBs/songyuan.dtb
+          sed -i 's/\.quad FD_SIZE /\.quad FD_SIZE + _Payload - _Head /' Mu-Silicium/BootShim/BootShim.S
+          grep 'FD_SIZE + _Payload' Mu-Silicium/BootShim/BootShim.S
+          D=Mu-Silicium/Mu_Basecore/BaseTools/Bin/mu_nasm_extdep
+          mkdir -p "$D/Linux-x86-64"
+          echo 'version: 20016.1.1' > "$D/extdep_state.yaml"
+          ln -sf /usr/bin/nasm /usr/bin/ndisasm "$D/Linux-x86-64/"
+          python3 -m venv venv
+          venv/bin/pip install -r Mu-Silicium/pip-requirements.txt
+      - name: Build production firmware
+        run: |
+          source venv/bin/activate
+          cd Mu-Silicium
+          python3 build_uefi.py -d songyuan -r RELEASE
+          fd=Build/songyuanPkg/RELEASE_CLANGPDB/FV/SILICIUM_UEFI.fd
+          test "$(stat -c %s "$fd")" -eq $((0x300000))
+          sha256sum "$fd"
+          find Build/songyuanPkg -name UniXNU.efi -o -name UniXNUDxe.efi -o -name DarwinBoot.efi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: songyuan-uefi
+          path: |
+            Mu-Silicium/Build/songyuanPkg/**/FV/*.fd
+            Mu-Silicium/Build/songyuanPkg/**/AARCH64/UniXNU.efi
+            Mu-Silicium/Build/songyuanPkg/**/AARCH64/UniXNUDxe.efi
+            Mu-Silicium/Build/songyuanPkg/**/AARCH64/DarwinBoot.efi
+            Resources/songyuan-hardware.json
+          if-no-files-found: error
+          retention-days: 14

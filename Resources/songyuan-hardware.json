@@ -1,0 +1,267 @@
+{
+  "device": "songyuan",
+  "model": "Redmi K100 Pro Max",
+  "soc": "SM8850",
+  "source": "live FDT captured 2026-11-11",
+  "framebuffer": {
+    "base": 4236247040,
+    "width": 1200,
+    "height": 2608,
+    "stride": 4800
+  },
+  "touch": {
+    "controller": "FocalTech FT3683",
+    "se_base": 27787264,
+    "wrapper_base": 28049408,
+    "avdd_gpio": 117,
+    "reset_gpio": 66,
+    "irq_gpio": 158,
+    "width": 1200,
+    "height": 2608,
+    "android_super_resolution": 100
+  },
+  "reserved_memory": [
+    {
+      "name": "/reserved-memory/gunyah_hyp_region@80000000",
+      "base": 2147483648,
+      "size": 14680064
+    },
+    {
+      "name": "/reserved-memory/reserved_region@80e00000",
+      "base": 2162163712,
+      "size": 4194304
+    },
+    {
+      "name": "/reserved-memory/cpucp_pdp_region@81200000",
+      "base": 2166358016,
+      "size": 2097152
+    },
+    {
+      "name": "/reserved-memory/xbl_dtlog_region@81a00000",
+      "base": 2174746624,
+      "size": 393216
+    },
+    {
+      "name": "/reserved-memory/aop_image_region@81c00000",
+      "base": 2176843776,
+      "size": 393216
+    },
+    {
+      "name": "/reserved-memory/aop_cmd_db_region@81c60000",
+      "base": 2177236992,
+      "size": 131072
+    },
+    {
+      "name": "/reserved-memory/aop_tme_uefi_merged_region@81c80000",
+      "base": 2177368064,
+      "size": 475136
+    },
+    {
+      "name": "/reserved-memory/smem_region@81d00000",
+      "base": 2177892352,
+      "size": 2097152
+    },
+    {
+      "name": "/reserved-memory/pdp_ns_shared_region@81f00000",
+      "base": 2179989504,
+      "size": 1048576
+    },
+    {
+      "name": "/reserved-memory/cpucp_scandump_region@82000000",
+      "base": 2181038080,
+      "size": 3670016
+    },
+    {
+      "name": "/reserved-memory/adsp_mhi_region@82380000",
+      "base": 2184708096,
+      "size": 131072
+    },
+    {
+      "name": "/reserved-memory/soccp_sdi_region@823a0000",
+      "base": 2184839168,
+      "size": 262144
+    },
+    {
+      "name": "/reserved-memory/pmic_minii_dump_region@823e0000",
+      "base": 2185101312,
+      "size": 524288
+    },
+    {
+      "name": "/reserved-memory/qup_fw_region@82460000",
+      "base": 2185625600,
+      "size": 98304
+    },
+    {
+      "name": "/reserved-memory/pvm_fw_region@824a0000",
+      "base": 2185887744,
+      "size": 1048576
+    },
+    {
+      "name": "/reserved-memory/tz_stat_region@82700000",
+      "base": 2188378112,
+      "size": 1048576
+    },
+    {
+      "name": "/reserved-memory/qdss_apps_region@82800000",
+      "base": 2189426688,
+      "size": 33554432
+    },
+    {
+      "name": "/reserved-memory/dsm_partition_1_region@84a00000",
+      "base": 2225078272,
+      "size": 89128960
+    },
+    {
+      "name": "/reserved-memory/dsm_partition_2_region@89f00000",
+      "base": 2314207232,
+      "size": 11010048
+    },
+    {
+      "name": "/reserved-memory/mpss_region@8aa00000",
+      "base": 2325741568,
+      "size": 246415360
+    },
+    {
+      "name": "/reserved-memory/q6_mpss_dtb_region@99500000",
+      "base": 2572156928,
+      "size": 524288
+    },
+    {
+      "name": "/reserved-memory/ipa_fw_region@99580000",
+      "base": 2572681216,
+      "size": 65536
+    },
+    {
+      "name": "/reserved-memory/ipa_gsi_region@99590000",
+      "base": 2572746752,
+      "size": 40960
+    },
+    {
+      "name": "/reserved-memory/gpu_microcode_region@9959a000",
+      "base": 2572787712,
+      "size": 8192
+    },
+    {
+      "name": "/reserved-memory/camera_region@99600000",
+      "base": 2573205504,
+      "size": 8388608
+    },
+    {
+      "name": "/reserved-memory/camera_2_region@99e00000",
+      "base": 2581594112,
+      "size": 8388608
+    },
+    {
+      "name": "/reserved-memory/video_region@9a600000",
+      "base": 2589982720,
+      "size": 8388608
+    },
+    {
+      "name": "/reserved-memory/cvp_region@9ae00000",
+      "base": 2598371328,
+      "size": 7340032
+    },
+    {
+      "name": "/reserved-memory/cdsp_region@9b500000",
+      "base": 2605711360,
+      "size": 26214400
+    },
+    {
+      "name": "/reserved-memory/q6_cdsp_dtb_region@9ce00000",
+      "base": 2631925760,
+      "size": 524288
+    },
+    {
+      "name": "/reserved-memory/dcp_dtb_region@a0050000",
+      "base": 2684682240,
+      "size": 524288
+    },
+    {
+      "name": "/reserved-memory/dcp_region@a00d0000",
+      "base": 2685206528,
+      "size": 3145728
+    },
+    {
+      "name": "/reserved-memory/soccp_region@a03d0000",
+      "base": 2688352256,
+      "size": 5242880
+    },
+    {
+      "name": "/reserved-memory/soccp_dtb_region@a08d0000",
+      "base": 2693595136,
+      "size": 262144
+    },
+    {
+      "name": "/reserved-memory/q6_adsp_dtb_region@a1380000",
+      "base": 2704801792,
+      "size": 524288
+    },
+    {
+      "name": "/reserved-memory/adspslpi_region@a1400000",
+      "base": 2705326080,
+      "size": 89653248
+    },
+    {
+      "name": "/reserved-memory/hypervisor_extended_heap_region@0xc3dd0000",
+      "base": 3286040576,
+      "size": 10682368
+    },
+    {
+      "name": "/reserved-memory/xbl_ramdump_region@d7800000",
+      "base": 3615490048,
+      "size": 2097152
+    },
+    {
+      "name": "/reserved-memory/global_sync_region@d7a00000",
+      "base": 3617587200,
+      "size": 2097152
+    },
+    {
+      "name": "/reserved-memory/tz_merged_region@d8000000",
+      "base": 3623878656,
+      "size": 8388608
+    },
+    {
+      "name": "/reserved-memory/trust_ui_vm_region@f3800000",
+      "base": 4085252096,
+      "size": 83886080
+    },
+    {
+      "name": "/reserved-memory/oem_vm_region@f8800000",
+      "base": 4169138176,
+      "size": 58720256
+    },
+    {
+      "name": "/reserved-memory/dump_display_region@ff3ff800",
+      "base": 4282382336,
+      "size": 2048
+    },
+    {
+      "name": "/reserved-memory/ramoops-region",
+      "base": 4282384384,
+      "size": 2097152
+    },
+    {
+      "name": "/reserved-memory/llcc_lpi_region@ff800000",
+      "base": 4286578688,
+      "size": 8388608
+    },
+    {
+      "name": "/reserved-memory/lcp_dare_region",
+      "base": 36507222016,
+      "size": 100663296
+    },
+    {
+      "name": "/reserved-memory/shm@fc200000",
+      "base": 4229955584,
+      "size": 4194304
+    },
+    {
+      "name": "/reserved-memory/splash_region",
+      "base": 4236247040,
+      "size": 45088768
+    }
+  ],
+  "base_dtb_sha256": "30a0176154735fbf51532b0ee31dee04ea720f3760391f30f619bd00eabb397a",
+  "hardware_tested": false
+}

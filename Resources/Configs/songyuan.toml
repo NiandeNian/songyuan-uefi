@@ -1,0 +1,35 @@
+#
+# Device Status
+#
+[status]
+model_count = 1
+
+#
+# Boot Shim Configs
+#
+[boot_shim]
+requires_kernel_header = true
+
+#
+# UEFI FD Configs
+#
+[uefi_fd]
+base = 0xA7100000
+size = 0x300000
+
+#
+# Android Boot Image Kernel Configs
+#
+[boot_image_kernel]
+kernel_compression = "gzip"
+append_dtb         = true
+
+#
+# Android Boot Image Configs
+#
+[boot_image]
+# K90 Pro Max class ABL: with header v4 it loads init_boot's generic ramdisk instead of
+# the payload in this image, so the UniXNU payload needs header v0.
+header_version = 0
+os_version = "17.0.0"
+os_patch_level = "2026-11"
