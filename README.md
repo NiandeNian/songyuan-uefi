@@ -28,7 +28,9 @@ is `fastboot boot`, without replacing Android boot partitions.
 The map has 79 descriptors and 62 AddMem ranges, with all 48 captured live
 reservations covered. It uses the measured SM8850 GIC addresses 0x17000000 and
 0x17080000, preserves the display SIDs 0x800/0x801, and exposes the framebuffer
-through SimpleFbDxe. The original SEC/XBL image is retained at 0xc6800000.
+through SimpleFbDxe with a write-through framebuffer mapping. SMEM, SHM and
+the PDP shared region use uncached mappings. The original SEC/XBL image is
+retained at 0xc6800000.
 
 `fetch_vendor_inputs.py` extracts 61 pinned inputs from the public songyuan
 OS3.0.301.0.WGNCNXM firmware. The UEFI image, each PE32 and its dependency
