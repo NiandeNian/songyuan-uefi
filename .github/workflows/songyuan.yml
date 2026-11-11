@@ -6,7 +6,7 @@ on:
         description: UniXNU commit used for the menu and DarwinBoot
         default: efb89367d26190cde9048182ecb22bbf7012cb9b
   push:
-    paths: ['Platforms/**', 'Resources/**', 'validate_memory_map.py', '.github/workflows/songyuan.yml']
+    paths: ['Platforms/**', 'Resources/**', 'validate_memory_map.py', 'fetch_vendor_inputs.py', '.github/workflows/songyuan.yml']
 permissions:
   contents: read
 concurrency:
@@ -50,6 +50,9 @@ jobs:
           ln -sf /usr/bin/nasm /usr/bin/ndisasm "$D/Linux-x86-64/"
           python3 -m venv venv
           venv/bin/pip install -r Mu-Silicium/pip-requirements.txt
+          venv/bin/pip install uefi_firmware==1.16
+      - name: Extract pinned songyuan Qualcomm firmware inputs
+        run: venv/bin/python fetch_vendor_inputs.py --mu-root Mu-Silicium
       - name: Build production firmware
         run: |
           source venv/bin/activate

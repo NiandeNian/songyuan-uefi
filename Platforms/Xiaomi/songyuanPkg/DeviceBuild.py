@@ -27,7 +27,7 @@ class CommonPlatform ():
     PackagesSupported = ("songyuanPkg")
     ArchSupported = ("AARCH64")
     TargetsSupported = ("DEBUG", "RELEASE")
-    Scopes = ('aston', 'gcc_aarch64_linux', 'edk2-build')
+    Scopes = ('songyuan', 'gcc_aarch64_linux', 'edk2-build')
     WorkspaceRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     PackagesPath = (
         "Platforms/Xiaomi",

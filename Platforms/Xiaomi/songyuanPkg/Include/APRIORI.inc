@@ -2,7 +2,7 @@ APRIORI DXE {
   INF MdeModulePkg/Core/Dxe/DxeMain.inf
   INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/EnvDxe/EnvDxe.inf
+  INF Binaries/songyuan/EnvDxeEnhanced/EnvDxeEnhanced.inf
 
   INF MdeModulePkg/Universal/ReportStatusCodeRouter/RuntimeDxe/ReportStatusCodeRouterRuntimeDxe.inf
   INF MdeModulePkg/Universal/StatusCodeHandler/RuntimeDxe/StatusCodeHandlerRuntimeDxe.inf
@@ -12,51 +12,57 @@ APRIORI DXE {
   INF EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf
   INF ArmPkg/Drivers/TimerDxe/TimerDxe.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/SmemDxe/SmemDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/DALSYSDxe/DALSYSDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/HWIODxe/HWIODxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/ChipInfoDxe/ChipInfoDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/PlatformInfoDxe/PlatformInfoDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/HALIOMMUDxe/HALIOMMUDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/ULogDxe/ULogDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/IPCCDxe/IPCCDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/GLinkDxe/GLinkDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/CmdDbDxe/CmdDbDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/PwrUtilsDxe/PwrUtilsDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/NpaDxe/NpaDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/RpmhDxe/RpmhDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/VcsDxe/VcsDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/ClockDxe/ClockDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/ICBDxe/ICBDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/ShmBridgeDxe/ShmBridgeDxeLA.inf
-  INF Binaries/aston/QcomPkg/Drivers/TzDxe/ScmDxeCompat.inf
-  INF Binaries/aston/QcomPkg/Drivers/TLMMDxe/TLMMDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/I2CDxe/I2CDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/SPMIDxe/SPMIDxe.inf
+  INF Binaries/songyuan/SmemDxe/SmemDxe.inf
+  INF Binaries/songyuan/DALSys/DALSys.inf
+  INF Binaries/songyuan/HWIODxeDriver/HWIODxeDriver.inf
+  INF Binaries/songyuan/ChipInfo/ChipInfo.inf
+  INF Binaries/songyuan/PlatformInfoDxeDriver/PlatformInfoDxeDriver.inf
+  INF Binaries/songyuan/HALIOMMU/HALIOMMU.inf
+  INF Binaries/songyuan/ULogDxe/ULogDxe.inf
+  INF Binaries/songyuan/IPCCDxe/IPCCDxe.inf
+  INF Binaries/songyuan/GlinkDxe/GlinkDxe.inf
+  INF Binaries/songyuan/CmdDbDxe/CmdDbDxe.inf
+  INF Binaries/songyuan/MailboxDxe/MailboxDxe.inf
+  INF Binaries/songyuan/QcomScmiDxe/QcomScmiDxe.inf
+  INF Binaries/songyuan/Qup/Qup.inf
+  INF Binaries/songyuan/I3CMaster/I3CMaster.inf
+  INF Binaries/songyuan/PsStateDxe/PsStateDxe.inf
+  INF Binaries/songyuan/EXFG/EXFG.inf
+  INF Binaries/songyuan/ExLoadSw/ExLoadSw.inf
+  INF Binaries/songyuan/PwrUtilsDxe/PwrUtilsDxe.inf
+  INF Binaries/songyuan/NpaDxe/NpaDxe.inf
+  INF Binaries/songyuan/RpmhDxe/RpmhDxe.inf
+  INF Binaries/songyuan/VcsDxe/VcsDxe.inf
+  INF Binaries/songyuan/ClockDxe/ClockDxe.inf
+  INF Binaries/songyuan/ICBDxe/ICBDxe.inf
+  INF Binaries/songyuan/ShmBridgeDxeLA/ShmBridgeDxeLA.inf
+  INF Binaries/songyuan/ScmDxeCompat/ScmDxeCompat.inf
+  INF Binaries/songyuan/DALTLMM/DALTLMM.inf
+  INF Binaries/songyuan/I2C/I2C.inf
+  INF Binaries/songyuan/SPMI/SPMI.inf
 
   INF MdeModulePkg/Universal/ResetSystemRuntimeDxe/ResetSystemRuntimeDxe.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/PmicDxe/PmicDxeLa.inf
-  INF Binaries/aston/MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
-  INF Binaries/aston/MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+  INF Binaries/songyuan/PmicDxe/PmicDxe.inf
+  INF Binaries/songyuan/DiskIoDxe/DiskIoDxe.inf
+  INF Binaries/songyuan/PartitionDxe/PartitionDxe.inf
 
   INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
+  INF Binaries/songyuan/SdccDxe/SdccDxe.inf
+  INF Binaries/songyuan/UFSDxe/UFSDxe.inf
 
   INF FatPkg/EnhancedFatDxe/Fat.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/TzDxe/TzDxeLA.inf
+  INF Binaries/songyuan/TzDxeLA/TzDxeLA.inf
 
   INF MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/DDRInfoDxe/DDRInfoDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/OcdtDxe/OplusProject.inf
-  INF Binaries/aston/QcomPkg/Drivers/FeatureEnablerDxe/FeatureEnablerDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/PILProxyDxe/PILProxyDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/PILDxe/PILDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/SPSSDxe/SPSSDxe.inf
+  INF Binaries/songyuan/DDRInfoDxe/DDRInfoDxe.inf
+  INF Binaries/songyuan/FeatureEnablerDxe/FeatureEnablerDxe.inf
+  INF Binaries/songyuan/PILProxyDxe/PILProxyDxe.inf
+  INF Binaries/songyuan/PILDxe/PILDxe.inf
+  INF Binaries/songyuan/SPSSDxe/SPSSDxe.inf
 
   INF MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf
   INF MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
@@ -68,44 +74,42 @@ APRIORI DXE {
   INF MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf
   INF MdeModulePkg/Universal/BdsDxe/BdsDxe.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/SPIDxe/SPIDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/PmicGlinkDxe/PmicGlinkDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/UsbPwrCtrlDxe/UsbPwrCtrlDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/QcomChargerDxe/QcomChargerDxeLA.inf
-  INF Binaries/aston/QcomPkg/Drivers/ChargerExDxe/ChargerExDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/UsbfnDwc3Dxe/UsbfnDwc3Dxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/XhciPciEmulationDxe/XhciPciEmulationDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/XhciDxe/XhciDxe.inf
+  INF Binaries/songyuan/SPI/SPI.inf
+  INF Binaries/songyuan/PmicGlinkDxe/PmicGlinkDxe.inf
+  INF Binaries/songyuan/UsbPwrCtrlDxe/UsbPwrCtrlDxe.inf
+  INF Binaries/songyuan/QcomChargerDxeLA/QcomChargerDxeLA.inf
+  INF Binaries/songyuan/ChargerExDxe/ChargerExDxe.inf
+  INF Binaries/songyuan/UsbfnDwc3Dxe/UsbfnDwc3Dxe.inf
+  INF Binaries/songyuan/XhciPciEmulation/XhciPciEmulation.inf
+  INF Binaries/songyuan/XhciDxe/XhciDxe.inf
 
   INF MdeModulePkg/Bus/Usb/UsbBusDxe/UsbBusDxe.inf
   INF MdeModulePkg/Bus/Usb/UsbKbDxe/UsbKbDxe.inf
   INF MdeModulePkg/Bus/Usb/UsbMassStorageDxe/UsbMassStorageDxe.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/UsbMsdDxe/UsbMsdDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/UsbDeviceDxe/UsbDeviceDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/UsbConfigDxe/UsbConfigDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/ButtonsDxe/ButtonsDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/TsensDxe/TsensDxe.inf
+  INF Binaries/songyuan/UsbMsdDxe/UsbMsdDxe.inf
+  INF Binaries/songyuan/UsbDeviceDxe/UsbDeviceDxe.inf
+  INF Binaries/songyuan/UsbConfigDxe/UsbConfigDxe.inf
+  INF Binaries/songyuan/ButtonsDxe/ButtonsDxe.inf
+  INF Binaries/songyuan/TsensDxe/TsensDxe.inf
 
 !if $(USE_CUSTOM_DISPLAY_DRIVER) == 1
-  INF Binaries/aston/QcomPkg/Drivers/DisplayDxe/DisplayDxe.inf
+  INF Binaries/songyuan/DisplayDxe/DisplayDxe.inf
 !else
   INF SiliciumPkg/Drivers/SimpleFbDxe/SimpleFbDxe.inf
 !endif
 
-  INF Binaries/aston/QcomPkg/Drivers/LimitsDxe/LimitsDxe.inf
 !if $(USE_CUSTOM_DISPLAY_DRIVER) == 1
-  INF Binaries/aston/QcomPkg/Drivers/CPRDxe/CPRDxe.inf
+  INF Binaries/songyuan/CPRDxe/CPRDxe.inf
 !endif
-  INF Binaries/aston/QcomPkg/Drivers/GpiDxe/GpiDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/UCDxe/UCDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/RNGDxe/RngDxe.inf
+  INF Binaries/songyuan/GpiDxe/GpiDxe.inf
+  INF Binaries/songyuan/UCDxe/UCDxe.inf
+  INF Binaries/songyuan/RngDxe/RngDxe.inf
 
   INF EmbeddedPkg/SimpleTextInOutSerial/SimpleTextInOutSerial.inf
   INF MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
   INF MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
   INF MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
 
-  INF Binaries/aston/QcomPkg/Drivers/RscDxe/RscDxe.inf
-  INF Binaries/aston/QcomPkg/Drivers/OGaugeAuthDxe/OGaugeAuth.inf
+  INF Binaries/songyuan/RscDxe/RscDxe.inf
 }

@@ -97,17 +97,15 @@ READ_LOCK_STATUS   = TRUE
   # ACPI
   INF MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf
   INF MdeModulePkg/Universal/Acpi/AcpiPlatformDxe/AcpiPlatformDxe.inf
-  INF RuleOverride = ACPITABLE aston/AcpiTables.inf
 
   # IORT DT
   INF QcomPkg/Drivers/IortDtDxe/IortDtDxe.inf
 
   # Device Tree
-  #INF EmbeddedPkg/Drivers/DtPlatformDxe/DtPlatformDxe.inf
-  #FILE FREEFORM = 25462CDA-221F-47DF-AC1D-259CFAA4E326 {
-  #  SECTION RAW = songyuanPkg/FdtBlob/sm8550-oneplus-songyuan.dtb
-  #  SECTION UI = "DeviceTreeBlob"
-  #}
+  FILE FREEFORM = 25462CDA-221F-47DF-AC1D-259CFAA4E326 {
+    SECTION RAW = Resources/DTBs/songyuan.dtb
+    SECTION UI = "DeviceTreeBlob"
+  }
 
   !include QcomPkg/Extra.fdf.inc
 

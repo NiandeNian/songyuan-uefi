@@ -58,7 +58,8 @@ gMemoryDescriptor[] = {
   {"Display_Reserved    ", 0xFC800000, 0x02B00000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
 
   // UEFI and XNU allocations carved only from gaps in the live memory map.
-  {"FD_Reserved",        0xA7000000, 0x00100000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
+  // Original SEC and XBL protocol code retained at the stock ELF load address.
+  {"FD_Reserved",        0xC6800000, 0x002A8000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK},
   {"UEFI_FD",            0xA7100000, 0x00300000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
   {"UEFI_FD_Reserved",   0xA7400000, 0x00200000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
   {"Info_Blk",           0xA7601000, 0x00001000, AddMem, SYS_MEM, SYS_MEM_CAP, RtData, WRITE_BACK_XN},
@@ -80,6 +81,10 @@ gMemoryDescriptor[] = {
   {"IMEM_Cookie_Base",   0x146AA000, 0x00016000, AddDev, MMAP_IO, INITIALIZED, Conv, NS_DEVICE},
 
   // Register Regions
+  // SM8850 GCC and UFS register windows from the live FDT, rounded to 4K.
+  {"GCC",                0x00100000, 0x001F5000, AddDev, MMAP_IO, UNCACHEABLE, MmIO, NS_DEVICE},
+  {"UFS",                0x01D80000, 0x00027000, AddDev, MMAP_IO, UNCACHEABLE, MmIO, NS_DEVICE},
+  {"QUP_V3",             0x0A800000, 0x00800000, AddDev, MMAP_IO, UNCACHEABLE, MmIO, NS_DEVICE},
   {"IPC_ROUTER_TOP",     0x00400000, 0x00100000, AddDev, MMAP_IO, UNCACHEABLE, MmIO, NS_DEVICE},
   {"SECURITY_CONTROL",   0x00780000, 0x00007000, AddDev, MMAP_IO, UNCACHEABLE, MmIO, NS_DEVICE},
   {"QUP",                0x00800000, 0x00300000, AddDev, MMAP_IO, UNCACHEABLE, MmIO, NS_DEVICE},

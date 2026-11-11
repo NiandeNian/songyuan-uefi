@@ -86,12 +86,6 @@
   #
   ConfigurationMapLib|songyuanPkg/Library/ConfigurationMapLib/ConfigurationMapLib.inf
 
-[Components]
-  #
-  # ACPI Tables
-  #
-  aston/AcpiTables.inf
-
 # Boot manager and the XNU loader are real production components.
 [Components]
   UniXNUPkg/Application/UniXNU/UniXNU.inf
