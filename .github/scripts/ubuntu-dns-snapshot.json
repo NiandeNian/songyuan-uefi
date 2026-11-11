@@ -1,0 +1,10 @@
+{
+  "queried_at": "2026-11-11T14:31:30Z",
+  "source": "https://dns.google/resolve (A records queried from the development host)",
+  "tls_checked_address": "185.125.190.81",
+  "tls_checked_hosts": ["archive.ubuntu.com", "security.ubuntu.com"],
+  "hosts": {
+    "archive.ubuntu.com": ["185.125.190.81", "185.125.190.82", "185.125.190.83"],
+    "security.ubuntu.com": ["185.125.190.81", "185.125.190.82", "185.125.190.83"]
+  }
+}
